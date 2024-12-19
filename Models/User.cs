@@ -43,3 +43,4 @@ namespace BerberSite.Models
         Employee = 3
     }
 }
+
