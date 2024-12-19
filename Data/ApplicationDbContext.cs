@@ -1,5 +1,4 @@
-﻿using Azure;
-using BerberSite.Models;
+﻿using BerberSite.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace BerberSite.Data
@@ -10,11 +9,27 @@ namespace BerberSite.Data
             : base(options)
         {
         }
+
         public DbSet<User> Users { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Operation> Operations { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<EmployeeOperation> EmployeeOperations { get; set; }
         public DbSet<WorkingHour> WorkingHours { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<EmployeeOperation>()
+                .HasKey(eo => new { eo.EmployeeId, eo.OperationId });
+
+            modelBuilder.Entity<Appointment>()
+                .HasOne(a => a.Customer)
+                .WithMany() // veya uygun navigation property
+                .HasForeignKey(a => a.CustomerId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            base.OnModelCreating(modelBuilder);
+        }
+
     }
 }
