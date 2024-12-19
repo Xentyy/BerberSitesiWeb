@@ -33,7 +33,10 @@ namespace BerberSite.Models
         public Role Role { get; set; } = Role.Customer;
 
         // Navigation Property
+<<<<<<< HEAD
         public virtual Employee? Employee { get; set; }
+=======
+>>>>>>> b67f6ba7cf09d90ece82e286aee87bf2d2f19735
     }
 
     public enum Role
@@ -43,4 +46,7 @@ namespace BerberSite.Models
         Employee = 3
     }
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> b67f6ba7cf09d90ece82e286aee87bf2d2f19735

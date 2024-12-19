@@ -1,4 +1,3 @@
-using BerberSite.Data;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -38,7 +37,11 @@ app.MapControllerRoute(
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
+<<<<<<< HEAD
     SeedData.Initialize(services);
+=======
+  
+>>>>>>> b67f6ba7cf09d90ece82e286aee87bf2d2f19735
 }
 
 app.Run();
