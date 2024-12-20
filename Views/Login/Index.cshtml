@@ -1,0 +1,29 @@
+﻿@model BerberSite.ViewModels.LoginViewModel
+
+@{
+    ViewBag.Title = "Giriş Yap";
+}
+
+<div class="d-flex justify-content-center align-items-center vh-100">
+    <div class="card shadow" style="width: 400px;">
+        <div class="card-header bg-primary text-white text-center">
+            <h4 class="card-title mb-0">Giriş Yap</h4>
+        </div>
+        <div class="card-body">
+            <form asp-action="Index" method="post">
+                <div class="mb-3">
+                    <label class="form-label">E-Posta</label>
+                    <input asp-for="Email" class="form-control" placeholder="E-posta adresinizi girin" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Şifre</label>
+                    <input asp-for="Password" class="form-control" type="password" placeholder="Şifrenizi girin" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Giriş Yap</button>
+                <p class="text-center mt-3 mb-0">Hesabınız yok mu? <a asp-controller="Register" asp-action="Index" class="text-primary">Kayıt Olun</a></p>
+            </form>
+        </div>
+    </div>
+</div>
