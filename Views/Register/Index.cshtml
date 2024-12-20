@@ -1,0 +1,44 @@
+﻿@model BerberSite.ViewModels.RegisterViewModel
+
+@{
+    ViewBag.Title = "Kayıt Ol";
+}
+
+<div class="d-flex justify-content-center align-items-center vh-100">
+    <div class="card shadow" style="width: 400px;">
+        <div class="card-header bg-success text-white text-center">
+            <h4 class="card-title mb-0">Kayıt Ol</h4>
+        </div>
+        <div class="card-body">
+            <form asp-action="Index" method="post">
+                <div class="mb-3">
+                    <label>Ad</label>
+                    <input asp-for="FirstName" class="form-control" placeholder="Adınızı girin" />
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label>Soyad</label>
+                    <input asp-for="LastName" class="form-control" placeholder="Soyadınızı girin" />
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label>Telefon</label>
+                    <input asp-for="PhoneNumber" class="form-control" placeholder="Telefon numaranızı girin" />
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label>E-Posta</label>
+                    <input asp-for="Email" class="form-control" placeholder="E-posta adresinizi girin" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label>Şifre</label>
+                    <input asp-for="Password" class="form-control" type="password" placeholder="Şifrenizi oluşturun" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-success w-100">Kayıt Ol</button>
+                <p class="text-center mt-3 mb-0">Zaten bir hesabınız var mı? <a asp-controller="Login" asp-action="Index" class="text-success">Giriş Yapın</a></p>
+            </form>
+        </div>
+    </div>
+</div>

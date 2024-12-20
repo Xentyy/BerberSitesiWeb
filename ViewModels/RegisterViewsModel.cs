@@ -1,12 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace BerberSite.Models
+namespace BerberSite.ViewModels
 {
-    public class User
+    public class RegisterViewModel
     {
-        [Key]
-        public int Id { get; set; }
-
         [Required(ErrorMessage = "Adınızı Giriniz.")]
         [StringLength(50, ErrorMessage = "Adınız en fazla 50 karakter olabilir.")]
         public string FirstName { get; set; }
@@ -24,23 +21,11 @@ namespace BerberSite.Models
         [EmailAddress(ErrorMessage = "Lütfen geçerli bir mail adresi giriniz.")]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Şifre gereklidir.")]
         [DataType(DataType.Password)]
         [MinLength(6, ErrorMessage = "Şifre en az 6 karakter olmalıdır.")]
         public string Password { get; set; }
 
-        [Required]
-        public Role Role { get; set; } = Role.Customer;
-
-        public virtual Employee? Employee { get; set; }
-
-    }
-
-    public enum Role
-    {
-        Admin = 1,
-        Customer = 2,
-        Employee = 3
+        // Rol alanını kaldırdık. Her zaman Customer verilecek.
     }
 }
-
