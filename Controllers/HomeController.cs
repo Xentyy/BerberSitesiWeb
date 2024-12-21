@@ -1,16 +1,16 @@
-using System.Diagnostics;
-using BerberSite.Models;
+using BerberSite.Data;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace BerberSite.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ApplicationDbContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ApplicationDbContext context)
         {
-            _logger = logger;
+            _context = context;
         }
 
         public IActionResult Index()
@@ -18,15 +18,15 @@ namespace BerberSite.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult Hizmetler()
         {
-            return View();
+            var operations = _context.Operations.ToList();
+            return View(operations);
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View();
         }
     }
 }

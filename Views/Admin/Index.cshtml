@@ -1,0 +1,13 @@
+﻿@{
+    ViewBag.Title = "Admin Paneli";
+}
+
+<h2 class="text-center my-4">Admin Paneli</h2>
+<p class="text-center">Yönetim işlemlerini aşağıdaki menüden seçebilirsiniz:</p>
+<div class="list-group mt-3" style="max-width:400px;margin:auto;">
+    <a class="list-group-item list-group-item-action" asp-action="KullaniciYonetimi">Kullanıcı Yönetimi</a>
+    <a class="list-group-item list-group-item-action" asp-action="PersonelYonetimi">Personel Yönetimi</a>
+    <a class="list-group-item list-group-item-action" asp-action="RandevuYonetimi">Randevu Yönetimi</a>
+    <a class="list-group-item list-group-item-action" asp-action="IslemYonetimi">İşlem Yönetimi</a>
+    <a class="list-group-item list-group-item-action" asp-action="HaftaninElemaniGoruntule">Haftanın Çalışanı</a>
+</div>
