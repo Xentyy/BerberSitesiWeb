@@ -1,0 +1,45 @@
+﻿@model BerberSite.Models.User
+@{
+    ViewBag.Title = "Kullanıcı Düzenle";
+}
+
+<h2>Kullanıcı Düzenle</h2>
+
+<div class="d-flex justify-content-center mt-3">
+    <div class="card" style="width: 500px;">
+        <div class="card-header bg-info text-white">
+            <h4 class="card-title">Kullanıcı Düzenle</h4>
+        </div>
+        <div class="card-body">
+            <form asp-action="KullaniciDuzenle" method="post">
+                <input type="hidden" asp-for="Id" />
+                <div class="mb-3">
+                    <label>Ad</label>
+                    <input asp-for="FirstName" class="form-control" />
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label>Soyad</label>
+                    <input asp-for="LastName" class="form-control" />
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label>Telefon</label>
+                    <input asp-for="PhoneNumber" class="form-control" />
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label>E-Posta</label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label>Rol</label>
+                    <select asp-for="Role" class="form-control" asp-items="Html.GetEnumSelectList<BerberSite.Models.Role>()"></select>
+                    <span asp-validation-for="Role" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Güncelle</button>
+            </form>
+        </div>
+    </div>
+</div>
