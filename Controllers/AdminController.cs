@@ -1,6 +1,8 @@
 ﻿using BerberSite.Data;
 using BerberSite.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using BerberSite.ViewModels;
 
 namespace BerberSite.Controllers
 {
@@ -154,5 +156,95 @@ namespace BerberSite.Controllers
             _context.SaveChanges();
             return RedirectToAction("KullaniciYonetimi");
         }
+<<<<<<< HEAD
+=======
+
+        // ------------------ Personel Yönetimi ------------------
+        public IActionResult PersonelYonetimi()
+        {
+            var employees = _context.Employees.Include(e => e.User).ToList();
+            return View(employees);
+        }
+
+        [HttpGet]
+        public IActionResult PersonelDuzenle(int id)
+        {
+            var employee = _context.Employees
+                .Include(e => e.User)
+                .Include(e => e.EmployeeOperations).ThenInclude(eo => eo.Operation)
+                .Include(e => e.WorkingHours)
+                .FirstOrDefault(e => e.Id == id);
+
+            if (employee == null) return NotFound();
+
+            var allOperations = _context.Operations.ToList();
+
+            var viewModel = new PersonelDuzenleViewModel
+            {
+                Employee = employee,
+                AllOperations = allOperations,
+                NewWorkingHour = new WorkingHour { EmployeeId = employee.Id }
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public IActionResult PersonelOperationEkle(int employeeId, int operationId)
+        {
+            var employee = _context.Employees.Find(employeeId);
+            var operation = _context.Operations.Find(operationId);
+            if (employee == null || operation == null)
+                return NotFound();
+
+            bool alreadyExists = _context.EmployeeOperations.Any(eo => eo.EmployeeId == employeeId && eo.OperationId == operationId);
+            if (!alreadyExists)
+            {
+                _context.EmployeeOperations.Add(new EmployeeOperation { EmployeeId = employeeId, OperationId = operationId });
+                _context.SaveChanges();
+            }
+
+            return RedirectToAction("PersonelDuzenle", new { id = employeeId });
+        }
+
+        [HttpPost]
+        public IActionResult PersonelOperationSil(int employeeId, int operationId)
+        {
+            var eo = _context.EmployeeOperations.FirstOrDefault(e => e.EmployeeId == employeeId && e.OperationId == operationId);
+            if (eo == null) return NotFound();
+
+            _context.EmployeeOperations.Remove(eo);
+            _context.SaveChanges();
+
+            return RedirectToAction("PersonelDuzenle", new { id = employeeId });
+        }
+
+        [HttpPost]
+        public IActionResult CalismaSaatiEkle(WorkingHour model)
+        {
+            if (model.StartTime >= model.EndTime)
+            {
+                TempData["CalismaSaatiHata"] = "Başlangıç saati bitiş saatinden önce olmalıdır.";
+                return RedirectToAction("PersonelDuzenle", new { id = model.EmployeeId });
+            }
+
+            _context.WorkingHours.Add(model);
+            _context.SaveChanges();
+            return RedirectToAction("PersonelDuzenle", new { id = model.EmployeeId });
+        }
+
+        [HttpPost]
+        public IActionResult CalismaSaatiSil(int workingHourId)
+        {
+            var wh = _context.WorkingHours.Find(workingHourId);
+            if (wh == null) return NotFound();
+
+            int empId = wh.EmployeeId;
+            _context.WorkingHours.Remove(wh);
+            _context.SaveChanges();
+
+            return RedirectToAction("PersonelDuzenle", new { id = empId });
+        }
+>>>>>>> 76dd60c14bb611a0acfb8ba343c1c0cc0bbef79c
     }
 }
