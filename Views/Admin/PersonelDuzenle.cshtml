@@ -1,0 +1,138 @@
+﻿@model BerberSite.ViewModels.PersonelDuzenleViewModel
+
+@{
+    ViewBag.Title = "Personel Düzenle";
+}
+
+<h2 class="text-center my-4">Personel Düzenle</h2>
+
+<div class="card mb-3">
+    <div class="card-header bg-info text-white">
+        <h4 class="card-title">Personel Bilgileri</h4>
+    </div>
+    <div class="card-body">
+        <p><strong>Ad Soyad:</strong> @Model.Employee.Name @Model.Employee.Surname</p>
+        <p><strong>Email:</strong> @Model.Employee.Email</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <!-- Personelin Operasyonları -->
+        <div class="card mb-3">
+            <div class="card-header bg-warning text-dark">
+                <h5>Operasyonlar</h5>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Operasyon Adı</th>
+                            <th>İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var eo in Model.Employee.EmployeeOperations)
+                        {
+                            <tr>
+                                <td>@eo.Operation.OperationName</td>
+                                <td>
+                                    <form asp-action="PersonelOperationSil" method="post" style="display:inline;">
+                                        <input type="hidden" name="employeeId" value="@Model.Employee.Id" />
+                                        <input type="hidden" name="operationId" value="@eo.OperationId" />
+                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Operasyonu silmek istediğinize emin misiniz?');">Sil</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+                <hr />
+                <h5>Operasyon Ekle</h5>
+                <form asp-action="PersonelOperationEkle" method="post">
+                    <input type="hidden" name="employeeId" value="@Model.Employee.Id" />
+                    <div class="mb-3">
+                        <label>Operasyon Seç:</label>
+                        <select class="form-control" name="operationId">
+                            @foreach (var op in Model.AllOperations)
+                            {
+                                <option value="@op.Id">@op.OperationName</option>
+                            }
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-success">Ekle</button>
+                </form>
+            </div>
+        </div>
+    </div> <!-- col-md-6 -->
+
+    <div class="col-md-6">
+        <!-- Personelin Çalışma Saatleri -->
+        <div class="card mb-3">
+            <div class="card-header bg-primary text-white">
+                <h5>Çalışma Saatleri</h5>
+            </div>
+            <div class="card-body">
+                @if (TempData["CalismaSaatiHata"] != null)
+                {
+                    <div class="alert alert-danger">@TempData["CalismaSaatiHata"]</div>
+                }
+
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Gün</th>
+                            <th>Başlangıç</th>
+                            <th>Bitiş</th>
+                            <th>İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var wh in Model.Employee.WorkingHours.OrderBy(w => w.Day))
+                        {
+                            <tr>
+                                <td>@wh.Day</td>
+                                <td>@wh.StartTime</td>
+                                <td>@wh.EndTime</td>
+                                <td>
+                                    <form asp-action="CalismaSaatiSil" method="post" style="display:inline;">
+                                        <input type="hidden" name="workingHourId" value="@wh.Id" />
+                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Çalışma saatini silmek istediğinizden emin misiniz?');">Sil</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+                <hr />
+                <h5>Çalışma Saati Ekle</h5>
+                <form asp-action="CalismaSaatiEkle" method="post">
+                    <!-- EmployeeId hidden input -->
+                    <input type="hidden" name="EmployeeId" value="@Model.Employee.Id" />
+
+                    <div class="mb-3">
+                        <label>Gün:</label>
+                        <select name="Day" class="form-control">
+                            @foreach (DayOfWeek day in Enum.GetValues(typeof(DayOfWeek)))
+                            {
+                                <option value="@day">@day</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label>Başlangıç Saati:</label>
+                        <input name="StartTime" class="form-control" type="time" />
+                    </div>
+                    <div class="mb-3">
+                        <label>Bitiş Saati:</label>
+                        <input name="EndTime" class="form-control" type="time" />
+                    </div>
+                    <button type="submit" class="btn btn-success">Ekle</button>
+                </form>
+
+            </div>
+        </div>
+    </div> <!-- col-md-6 -->
+</div>
