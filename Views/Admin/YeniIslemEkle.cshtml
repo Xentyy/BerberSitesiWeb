@@ -1,0 +1,35 @@
+﻿@model BerberSite.Models.Operation
+
+@{
+    ViewBag.Title = "Yeni İşlem Ekle";
+}
+
+<h2 class="text-center my-4">Yeni İşlem Ekle</h2>
+
+<div class="d-flex justify-content-center mt-3">
+    <div class="card" style="width: 500px;">
+        <div class="card-header bg-primary text-white text-center">
+            <h4 class="card-title">Yeni İşlem</h4>
+        </div>
+        <div class="card-body">
+            <form asp-action="YeniIslemEkle" method="post">
+                <div class="mb-3">
+                    <label class="form-label">İşlem Adı</label>
+                    <input asp-for="OperationName" class="form-control" />
+                    <span asp-validation-for="OperationName" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Fiyat</label>
+                    <input asp-for="Price" class="form-control" type="number" />
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Süre (dk)</label>
+                    <input asp-for="Duration" class="form-control" type="number" />
+                    <span asp-validation-for="Duration" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-success w-100">Kaydet</button>
+            </form>
+        </div>
+    </div>
+</div>

@@ -34,16 +34,16 @@
                     <tbody>
                         @foreach (var eo in Model.Employee.EmployeeOperations)
                         {
-                                <tr>
-                                    <td>@eo.Operation.OperationName</td>
-                                    <td>
-                                        <form asp-action="PersonelOperationSil" method="post" style="display:inline;">
-                                            <input type="hidden" name="employeeId" value="@Model.Employee.Id" />
-                                            <input type="hidden" name="operationId" value="@eo.OperationId" />
-                                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Operasyonu silmek istediğinize emin misiniz?');">Sil</button>
-                                        </form>
-                                    </td>
-                                </tr>
+                            <tr>
+                                <td>@eo.Operation.OperationName</td>
+                                <td>
+                                    <form asp-action="PersonelOperationSil" method="post" style="display:inline;">
+                                        <input type="hidden" name="employeeId" value="@Model.Employee.Id" />
+                                        <input type="hidden" name="operationId" value="@eo.OperationId" />
+                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Operasyonu silmek istediğinize emin misiniz?');">Sil</button>
+                                    </form>
+                                </td>
+                            </tr>
                         }
                     </tbody>
                 </table>
@@ -57,7 +57,7 @@
                         <select class="form-control" name="operationId">
                             @foreach (var op in Model.AllOperations)
                             {
-                                    <option value="@op.Id">@op.OperationName</option>
+                                <option value="@op.Id">@op.OperationName</option>
                             }
                         </select>
                     </div>
@@ -76,7 +76,7 @@
             <div class="card-body">
                 @if (TempData["CalismaSaatiHata"] != null)
                 {
-                        <div class="alert alert-danger">@TempData["CalismaSaatiHata"]</div>
+                    <div class="alert alert-danger">@TempData["CalismaSaatiHata"]</div>
                 }
 
                 <table class="table table-striped">
@@ -91,17 +91,17 @@
                     <tbody>
                         @foreach (var wh in Model.Employee.WorkingHours.OrderBy(w => w.Day))
                         {
-                                <tr>
-                                    <td>@wh.Day</td>
-                                    <td>@wh.StartTime</td>
-                                    <td>@wh.EndTime</td>
-                                    <td>
-                                        <form asp-action="CalismaSaatiSil" method="post" style="display:inline;">
-                                            <input type="hidden" name="workingHourId" value="@wh.Id" />
-                                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Çalışma saatini silmek istediğinizden emin misiniz?');">Sil</button>
-                                        </form>
-                                    </td>
-                                </tr>
+                            <tr>
+                                <td>@wh.Day</td>
+                                <td>@wh.StartTime</td>
+                                <td>@wh.EndTime</td>
+                                <td>
+                                    <form asp-action="CalismaSaatiSil" method="post" style="display:inline;">
+                                        <input type="hidden" name="workingHourId" value="@wh.Id" />
+                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Çalışma saatini silmek istediğinizden emin misiniz?');">Sil</button>
+                                    </form>
+                                </td>
+                            </tr>
                         }
                     </tbody>
                 </table>
@@ -117,7 +117,7 @@
                         <select name="Day" class="form-control">
                             @foreach (DayOfWeek day in Enum.GetValues(typeof(DayOfWeek)))
                             {
-                                    <option value="@day">@day</option>
+                                <option value="@day">@day</option>
                             }
                         </select>
                     </div>
