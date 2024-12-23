@@ -156,9 +156,6 @@ namespace BerberSite.Controllers
             _context.SaveChanges();
             return RedirectToAction("KullaniciYonetimi");
         }
-<<<<<<< HEAD
-=======
-
         // ------------------ Personel Yönetimi ------------------
         public IActionResult PersonelYonetimi()
         {
@@ -245,6 +242,80 @@ namespace BerberSite.Controllers
 
             return RedirectToAction("PersonelDuzenle", new { id = empId });
         }
->>>>>>> 76dd60c14bb611a0acfb8ba343c1c0cc0bbef79c
+        // ------------------ Randevu Yönetimi ------------------
+        public IActionResult RandevuYonetimi()
+        {
+            var appointments = _context.Appointments
+                .Include(a => a.Employee)
+                .Include(a => a.Operation)
+                .ToList();
+            return View(appointments);
+        }
+
+        // ------------------ İşlem Yönetimi ------------------
+        public IActionResult IslemYonetimi()
+        {
+            var operations = _context.Operations.ToList();
+            return View(operations);
+        }
+
+        [HttpGet]
+        public IActionResult YeniIslemEkle()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult YeniIslemEkle(Operation model)
+        {
+            if (!ModelState.IsValid)
+                return View(model);
+
+            _context.Operations.Add(model);
+            _context.SaveChanges();
+            return RedirectToAction("IslemYonetimi");
+        }
+
+        [HttpGet]
+        public IActionResult IslemDuzenle(int id)
+        {
+            var op = _context.Operations.Find(id);
+            if (op == null) return NotFound();
+            return View(op);
+        }
+
+        [HttpPost]
+        public IActionResult IslemDuzenle(Operation model)
+        {
+            if (!ModelState.IsValid)
+                return View(model);
+
+            var op = _context.Operations.Find(model.Id);
+            if (op == null) return NotFound();
+
+            op.OperationName = model.OperationName;
+            op.Price = model.Price;
+            op.Duration = model.Duration;
+            _context.SaveChanges();
+
+            return RedirectToAction("IslemYonetimi");
+        }
+
+        [HttpPost]
+        public IActionResult IslemSil(int id)
+        {
+            var op = _context.Operations.Find(id);
+            if (op == null) return NotFound();
+
+            _context.Operations.Remove(op);
+            _context.SaveChanges();
+
+            return RedirectToAction("IslemYonetimi");
+        }
+
+
+
+
+
     }
 }
