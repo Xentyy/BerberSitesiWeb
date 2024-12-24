@@ -1,0 +1,24 @@
+﻿@{
+    ViewBag.Title = "Haftanın Çalışanı";
+}
+
+<h2 class="text-center my-4">Haftanın Çalışanı</h2>
+@if (ViewBag.Message != null)
+
+{
+    <div class="alert alert-info text-center">@ViewBag.Message</div>
+}
+
+else
+
+{
+    <div class="card text-center shadow mt-3" style="max-width:400px;margin:auto;">
+        <div class="card-header bg-success text-white">
+            Haftanın Çalışanı
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">@ViewBag.EmployeeName</h5>
+            <p class="card-text">Toplam Kazanç: @ViewBag.TotalEarnings TL</p>
+        </div>
+    </div>
+}
