@@ -313,7 +313,53 @@ namespace BerberSite.Controllers
             return RedirectToAction("IslemYonetimi");
         }
 
+        [HttpGet]
+        public IActionResult HaftaninElemaniGoruntule()
+        {
+            DateTime startDate = DateTime.Today.AddDays(-7);
 
+            // Son 7 gün içerisinde onaylanmış randevular
+            var lastWeekAppointments = _context.Appointments
+                .Where(a => a.IsApproved == true && a.StartTime >= startDate)
+                .ToList();
+
+            if (!lastWeekAppointments.Any())
+            {
+                ViewBag.Message = "Son 7 günde onaylanmış randevu bulunamadı. Haftanın elemanı yok.";
+                return View();
+            }
+
+            // Personel bazında grupla ve toplam kazancı hesapla
+            var employeeEarnings = lastWeekAppointments
+                .GroupBy(a => a.EmployeeId)
+                .Select(g => new {
+                    EmployeeId = g.Key,
+                    TotalEarnings = g.Sum(x => x.Price)
+                })
+                .OrderByDescending(e => e.TotalEarnings)
+                .FirstOrDefault(); // En çok kazandıranı al
+
+            if (employeeEarnings == null)
+            {
+                ViewBag.Message = "Haftanın elemanı bulunamadı.";
+                return View();
+            }
+
+            var employee = _context.Employees
+                .Include(e => e.User)
+                .FirstOrDefault(e => e.Id == employeeEarnings.EmployeeId);
+
+            if (employee == null)
+            {
+                ViewBag.Message = "Personel bulunamadı.";
+                return View();
+            }
+
+            ViewBag.EmployeeName = employee.Name + " " + employee.Surname;
+            ViewBag.TotalEarnings = employeeEarnings.TotalEarnings;
+
+            return View();
+        }
 
 
 
