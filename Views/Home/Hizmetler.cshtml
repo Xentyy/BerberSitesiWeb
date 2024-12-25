@@ -1,0 +1,24 @@
+﻿@model IEnumerable<BerberSite.Models.Operation>
+
+@{
+    ViewBag.Title = "Hizmetlerimiz";
+}
+
+<h2 class="text-center my-4">Hizmetlerimiz</h2>
+
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    @foreach (var service in Model)
+    {
+        <div class="col">
+            <div class="card shadow h-100">
+                <div class="card-body text-center">
+                    <h5 class="card-title">@service.OperationName</h5>
+                </div>
+                <div class="card-footer text-center">
+                    <p class="mb-0"><strong>Fiyat:</strong> @service.Price TL</p>
+                    <p><strong>Süre:</strong> @service.Duration dk</p>
+                </div>
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,54 @@
+﻿@model IEnumerable<BerberSite.Models.Appointment>
+
+@{
+    ViewBag.Title = "Randevu Listesi";
+}
+
+<h2 class="text-center my-4">Randevu Listesi</h2>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info text-center">Henüz bir randevu bulunmamaktadır.</div>
+}
+else
+{
+    <table class="table table-striped table-hover shadow-sm">
+        <thead class="table-dark">
+            <tr>
+                <th>Tarih ve Saat</th>
+                <th>Müşteri</th>
+                <th>Operasyon</th>
+                <th>Fiyat</th>
+                <th>Süre</th>
+                <th>Onay Durumu</th>
+                <th>İşlemler</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var app in Model)
+            {
+                <tr>
+                    <td>@app.StartTime.ToString("dd.MM.yyyy HH:mm")</td>
+                    <td>@(app.Customer != null ? app.Customer.FirstName + " " + app.Customer.LastName : "")</td>
+                    <td>@app.Operation.OperationName</td>
+                    <td>@app.Price TL</td>
+                    <td>@app.Duration dk</td>
+                    <td>@(app.IsApproved ? "Onaylandı" : "Onay Bekliyor")</td>
+                    <td>
+                        @if (!app.IsApproved)
+                        {
+                            <form asp-action="RandevuOnay" method="post" style="display:inline;">
+                                <input type="hidden" name="id" value="@app.Id" />
+                                <button class="btn btn-sm btn-success">Onayla</button>
+                            </form>
+                        }
+                        <form asp-action="RandevuIptal" method="post" style="display:inline;">
+                            <input type="hidden" name="id" value="@app.Id" />
+                            <button class="btn btn-sm btn-danger" onclick="return confirm('Randevuyu iptal etmek istediğinizden emin misiniz?');">İptal</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
