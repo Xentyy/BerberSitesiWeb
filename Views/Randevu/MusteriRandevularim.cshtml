@@ -1,0 +1,40 @@
+﻿@model IEnumerable<BerberSite.Models.Appointment>
+
+@{
+    ViewBag.Title = "Randevularım";
+}
+
+<h2 class="text-center my-4">Randevularım</h2>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info text-center">Henüz bir randevu almadınız.</div>
+}
+else
+{
+    <table class="table table-striped table-hover shadow-sm">
+        <thead class="table-dark">
+            <tr>
+                <th>Tarih ve Saat</th>
+                <th>Personel</th>
+                <th>Operasyon</th>
+                <th>Fiyat</th>
+                <th>Süre</th>
+                <th>Onay Durumu</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var app in Model)
+            {
+                <tr>
+                    <td>@app.StartTime.ToString("dd.MM.yyyy HH:mm")</td>
+                    <td>@(app.Employee != null ? app.Employee.Name + " " + app.Employee.Surname : "")</td>
+                    <td>@app.Operation.OperationName</td>
+                    <td>@app.Price TL</td>
+                    <td>@app.Duration dk</td>
+                    <td>@(app.IsApproved ? "Onaylandı" : "Onay Bekliyor")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

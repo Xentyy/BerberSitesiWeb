@@ -1,0 +1,22 @@
+﻿@model IEnumerable<BerberSite.Models.Employee>
+
+@{
+    ViewBag.Title = "Personel Seç";
+    var operation = ViewBag.Operation as BerberSite.Models.Operation;
+}
+
+<h2 class="text-center my-4">@operation.OperationName için Personel Seç</h2>
+
+<form method="post" class="card p-3 mt-3 shadow" style="max-width:400px;margin:auto;">
+    <input type="hidden" name="operationId" value="@operation.Id" />
+    <div class="mb-3">
+        <label class="form-label">Personel</label>
+        <select name="employeeId" class="form-select">
+            @foreach (var emp in Model)
+            {
+                <option value="@emp.Id">@emp.Name @emp.Surname</option>
+            }
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary w-100">Devam</button>
+</form>
