@@ -1,0 +1,31 @@
+﻿@model List<System.DateTime>
+
+@{
+    ViewBag.Title = "Tarih Seç";
+    var operation = ViewBag.Operation as BerberSite.Models.Operation;
+    var employee = ViewBag.Employee as BerberSite.Models.Employee;
+}
+
+<h2 class="text-center my-4">@operation.OperationName için @employee.Name @employee.Surname zaman seç</h2>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info text-center">Uygun zaman bulunamadı. Lütfen başka bir operasyon veya personel seçiniz.</div>
+}
+else
+{
+    <form method="post" class="card p-3 mt-3 shadow" style="max-width:400px;margin:auto;">
+        <input type="hidden" name="operationId" value="@operation.Id" />
+        <input type="hidden" name="employeeId" value="@employee.Id" />
+        <div class="mb-3">
+            <label class="form-label">Uygun Zaman</label>
+            <select name="startTime" class="form-select">
+                @foreach (var slot in Model)
+                {
+                    <option value="@slot">@slot.ToString("dd.MM.yyyy HH:mm")</option>
+                }
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Devam</button>
+    </form>
+}

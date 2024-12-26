@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "Randevu Onayla";
+    var operation = ViewBag.Operation as BerberSite.Models.Operation;
+    var employee = ViewBag.Employee as BerberSite.Models.Employee;
+    var startTime = (DateTime)ViewBag.StartTime;
+}
+
+<h2 class="text-center my-4">Randevu Onayla</h2>
+
+<div class="card shadow mt-3" style="max-width:500px;margin:auto;">
+    <div class="card-body">
+        <p><strong>Operasyon:</strong> @operation.OperationName</p>
+        <p><strong>Personel:</strong> @employee.Name @employee.Surname</p>
+        <p><strong>Tarih-Saat:</strong> @startTime.ToString("dd.MM.yyyy HH:mm")</p>
+        <p><strong>Fiyat:</strong> @operation.Price TL</p>
+        <p><strong>Süre:</strong> @operation.Duration dk</p>
+
+        <form method="post" asp-action="RandevuOnaylaPost">
+            <input type="hidden" name="operationId" value="@operation.Id" />
+            <input type="hidden" name="employeeId" value="@employee.Id" />
+            <input type="hidden" name="startTime" value="@startTime" />
+            <button type="submit" class="btn btn-success w-100">Onayla</button>
+        </form>
+    </div>
+</div>
