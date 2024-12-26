@@ -1,8 +1,64 @@
 ﻿@{
-    ViewData["Title"] = "Berber";
+    ViewBag.Title = "Ana Sayfa";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="jumbotron mt-4 p-5 bg-light rounded shadow text-center">
+    <h1 class="display-4">SauBerber'e Hoş Geldiniz!</h1>
+    <p class="lead">Tarzınızı yenilemek ve en iyi hizmeti almak için doğru yerdesiniz!</p>
+    <hr class="my-4">
+    <p>En iyi saç kesimleri, profesyonel sakal tıraşı ve daha fazlası için salonumuza bekliyoruz.</p>
+    <a class="btn btn-primary btn-lg mt-3" href="#about" role="button">Hakkımızda Daha Fazlası</a>
 </div>
+
+<section id="about" class="mt-5">
+    <h2 class="text-center mb-4">Hakkımızda</h2>
+    <div class="row align-items-center">
+        <div class="col-md-6">
+            <p class="fs-5">SauBerber, yılların tecrübesiyle size özel hizmetler sunmak için burada. Tarzınıza uygun saç ve sakal kesimleri, boyama hizmetleri ve daha fazlası ile sizlere en iyi deneyimi sağlıyoruz.</p>
+        </div>
+        <div class="col-md-6 text-center">
+            <img src="~/img/7.jpeg" alt="Berber Salonu" class="img-fluid rounded shadow" style="height: 350px; object-fit: cover; width: 100%;">
+        </div>
+    </div>
+</section>
+
+<section id="location" class="mt-5">
+    <h2 class="text-center mb-4">Salonumuzun Konumu</h2>
+    <div class="text-center">
+        <p class="fs-5">Altıyol Meydanı, Söğütlü Çeşme Caddesi, 34714 Kadıköy/İstanbul</p>
+        <div class="map-container mt-3">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3111.883972302747!2d29.013479476324616!3d41.02020457851878!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDEuMDIwMiBBUkMsIDI5LjAxMzQ3IEZLRQ!5e0!3m2!1str!2str!4v1676317736438!5m2!1str!2str" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+    </div>
+</section>
+
+<section id="advertisement" class="mt-5">
+    <h2 class="text-center mb-4">Neden SauBerber?</h2>
+    <div class="row">
+        <div class="col-md-4 text-center">
+            <img src="~/img/1.jpg" alt="Profesyonel Hizmet" class="img-fluid rounded shadow mb-3" style="height: 200px; object-fit: cover; width: 100%;">
+            <h4>Profesyonel Hizmet</h4>
+            <p>Tecrübeli ekibimizle her zaman en iyi hizmeti alırsınız.</p>
+        </div>
+        <div class="col-md-4 text-center">
+            <img src="~/img/4.jpeg" alt="Hijyenik Ortam" class="img-fluid rounded shadow mb-3" style="height: 200px; object-fit: cover; width: 100%;">
+            <h4>Hijyenik Ortam</h4>
+            <p>Salonumuzda hijyen kurallarına uygun hizmet alabilirsiniz.</p>
+        </div>
+        <div class="col-md-4 text-center">
+            <img src="~/img/3.jpg" alt="Kişiye Özel Tarz" class="img-fluid rounded shadow mb-3" style="height: 200px; object-fit: cover; width: 100%;">
+            <h4>Kişiye Özel Tarz</h4>
+            <p>Tarzınıza ve ihtiyaçlarınıza uygun çözümler sunuyoruz.</p>
+        </div>
+    </div>
+</section>
+
+<section id="working-hours" class="mt-5">
+    <h2 class="text-center mb-4">Çalışma Saatlerimiz</h2>
+    <p class="text-center fs-5">Pazartesi   <strong>10:00 - 20:00</strong></p>
+    <p class="text-center fs-5">Salı        <strong>10:00 - 20:00</strong></p>
+    <p class="text-center fs-5">Çarşamba    <strong>10:00 - 20:00</strong></p>
+    <p class="text-center fs-5">Perşembe    <strong>10:00 - 20:00</strong></p>
+    <p class="text-center fs-5">Cuma        <strong>10:00 - 20:00</strong></p>
+    <p class="text-center fs-5">Cumartesi   <strong>10:00 - 20:00</strong></p>
+</section>

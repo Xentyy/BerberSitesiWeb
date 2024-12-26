@@ -1,8 +1,9 @@
 ﻿using BerberSite.Data;
 using BerberSite.Models;
+using BerberSite.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using BerberSite.ViewModels;
+using System.Linq;
 
 namespace BerberSite.Controllers
 {
@@ -156,6 +157,7 @@ namespace BerberSite.Controllers
             _context.SaveChanges();
             return RedirectToAction("KullaniciYonetimi");
         }
+
         // ------------------ Personel Yönetimi ------------------
         public IActionResult PersonelYonetimi()
         {
@@ -242,6 +244,7 @@ namespace BerberSite.Controllers
 
             return RedirectToAction("PersonelDuzenle", new { id = empId });
         }
+
         // ------------------ Randevu Yönetimi ------------------
         public IActionResult RandevuYonetimi()
         {
@@ -360,8 +363,6 @@ namespace BerberSite.Controllers
 
             return View();
         }
-
-
 
     }
 }
