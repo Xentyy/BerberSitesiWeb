@@ -1,4 +1,8 @@
-﻿// Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿document.addEventListener('DOMContentLoaded', () => {
+    
+    const fadeInElements = document.querySelectorAll('.fade-in');
 
-// Write your JavaScript code.
+    fadeInElements.forEach(el => {
+        el.style.animationDelay = '0.2s';
+    });
+});

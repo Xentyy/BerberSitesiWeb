@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 
-namespace BerberSite.Api
+namespace BerberSite.Controllers.Api
 {
     [ApiController]
     [Route("api/[controller]")]
@@ -18,7 +18,6 @@ namespace BerberSite.Api
             _context = context;
         }
 
-        // GET: api/reportapi/haftaninpersoneli
         [HttpGet("haftaninpersoneli")]
         public IActionResult GetHaftaninPersoneli()
         {
@@ -37,7 +36,6 @@ namespace BerberSite.Api
                 });
             }
 
-            // Personel bazında grupla ve toplam kazancı hesapla
             var employeeEarnings = lastWeekAppointments
                 .GroupBy(a => a.EmployeeId)
                 .Select(g => new {
@@ -45,7 +43,7 @@ namespace BerberSite.Api
                     TotalEarnings = g.Sum(x => x.Price)
                 })
                 .OrderByDescending(e => e.TotalEarnings)
-                .FirstOrDefault(); // En çok kazandıranı al
+                .FirstOrDefault(); //En çok kazandıranı al
 
             if (employeeEarnings == null)
             {
@@ -55,7 +53,6 @@ namespace BerberSite.Api
                 });
             }
 
-            // İlgili personeli bul
             var employee = _context.Employees
                 .Include(e => e.User)
                 .FirstOrDefault(e => e.Id == employeeEarnings.EmployeeId);
@@ -68,7 +65,7 @@ namespace BerberSite.Api
                 });
             }
 
-            // JSON olarak geri döndür
+            // JSON olarak döndürüyoryz
             return Ok(new
             {
                 EmployeeName = employee.Name + " " + employee.Surname,

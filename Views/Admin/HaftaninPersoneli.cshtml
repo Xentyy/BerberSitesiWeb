@@ -1,16 +1,10 @@
 ﻿@{
-    ViewBag.Title = "Haftanın Çalışanı";
+    ViewBag.Title = "Haftanın Personeli";
 }
 
-<h2 class="text-center my-4">Haftanın Çalışanı</h2>
-@if (ViewBag.Message != null)
+<h2 class="text-center my-4">Haftanın Personeli</h2>
 
-{
-    <div class="alert alert-info text-center">@ViewBag.Message</div>
-}
-
-else
-
+@if (!string.IsNullOrEmpty(ViewBag.EmployeeName))
 {
     <div class="card text-center shadow mt-3" style="max-width:400px;margin:auto;">
         <div class="card-header bg-success text-white">
@@ -21,4 +15,8 @@ else
             <p class="card-text">Toplam Kazanç: @ViewBag.TotalEarnings TL</p>
         </div>
     </div>
+}
+else
+{
+    <p>Herhangi bir personel bilgisi bulunamadı.</p>
 }

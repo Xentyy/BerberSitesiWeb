@@ -1,22 +1,159 @@
-html {
-  font-size: 14px;
-}
-
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
 body {
-  margin-bottom: 60px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+    animation: fadeInBody 0.25s ease-in-out forwards;
+}
+
+@keyframes fadeInBody {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.jumbotron {
+    background: linear-gradient(to bottom right, #ffffff, #79777a);
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    animation: fadeInUp 0.8s ease-in-out forwards;
+    opacity: 0;
+}
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.card {
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+        background-color: #fefefe;
+    }
+
+.card-img-top {
+    object-fit: cover;
+    height: 200px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+footer {
+    background-color: #222;
+    color: #fff;
+    padding: 1rem 0;
+    text-align: center;
+}
+
+    footer a {
+        color: #4db8ff;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+        footer a:hover {
+            color: #80d4ff;
+        }
+
+.navbar {
+    background-color: #333;
+    padding: 0.8rem 1rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    color: #fff;
+    transition: color 0.3s ease;
+}
+
+    .navbar-brand:hover {
+        color: #4db8ff;
+    }
+
+.nav-link {
+    color: #ddd;
+    transition: color 0.3s ease;
+}
+
+    .nav-link:hover {
+        color: #fff;
+    }
+
+.btn {
+    border-radius: 5px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+
+    .btn:hover {
+        transform: scale(1.02);
+    }
+
+.btn-primary {
+    background-color: #4db8ff;
+    border-color: #4db8ff;
+}
+
+    .btn-primary:hover {
+        background-color: #80d4ff;
+        border-color: #80d4ff;
+    }
+
+.btn-success {
+    background-color: #5cb85c;
+    border-color: #5cb85c;
+}
+
+    .btn-success:hover {
+        background-color: #6fdc6f;
+        border-color: #6fdc6f;
+    }
+
+.table {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.list-group-item {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+    .list-group-item:hover {
+        background-color: #f0f8ff;
+        color: #333;
+    }
+
+.fade-in {
+    opacity: 0;
+    animation: fadeIn 0.7s forwards ease;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
 }

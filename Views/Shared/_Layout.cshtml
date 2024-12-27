@@ -1,49 +1,103 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - BerberSite</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/BerberSite.styles.css" asp-append-version="true" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ViewBag.Title - SauBerber</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">BerberSite</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
+            <div class="container">
+                <a class="navbar-brand" asp-controller="Home" asp-action="Index">
+                    <img src="~/img/logo1.png" alt="SauBerber" style="height:40px;" class="me-2" /> SauBerber
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false"
+                        aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link" asp-controller="Home" asp-action="Index">Ana Sayfa</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link" asp-controller="Home" asp-action="Hizmetler">Hizmetler</a>
                         </li>
+                        @if (Context.Session.GetString("UserId") != null)
+                        {
+                            var role = Context.Session.GetString("UserRole");
+                            if (role == "Customer")
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Randevu" asp-action="OperasyonSec">Randevu Al</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Randevu" asp-action="MusteriRandevularim">Randevularım</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Oneri" asp-action="Index">Öneri Al</a>
+                                </li>
+                            }
+                            else if (role == "Employee")
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Randevu" asp-action="Liste">Randevular</a>
+                                </li>
+                            }
+                            else if (role == "Admin")
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Admin" asp-action="Index">Admin Paneli</a>
+                                </li>
+                            }
+                        }
+                    </ul>
+                    <ul class="navbar-nav">
+                        @if (Context.Session.GetString("UserId") != null)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Login" asp-action="Logout">Çıkış</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Login" asp-action="Index">Giriş</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Register" asp-action="Index">Kayıt Ol</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - BerberSite - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <main class="container mt-4">
+        @RenderBody()
+    </main>
+
+    <footer class="bg-dark text-white mt-5 py-3">
+        <div class="container text-center">
+            <p>© 2024 - SauBerber | <a href="#" class="text-decoration-none text-white">Hakkımızda</a></p>
+            <p class="mt-2">
+                <a href="#" class="text-white mx-2"><i class="bi bi-facebook"></i></a>
+                <a href="#" class="text-white mx-2"><i class="bi bi-twitter"></i></a>
+                <a href="#" class="text-white mx-2"><i class="bi bi-instagram"></i></a>
+            </p>
         </div>
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+    @RenderSection("Scripts", required: false)
 </body>
 </html>

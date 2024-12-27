@@ -1,10 +1,11 @@
+using BerberSite.Data;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // HttpContextAccessor hizmetini ekleyin
 builder.Services.AddHttpContextAccessor();
-
+builder.Services.AddHttpClient();
 // DB Baðlantýsý
 builder.Services.AddDbContext<BerberSite.Data.ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -37,11 +38,7 @@ app.MapControllerRoute(
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
-<<<<<<< HEAD
     SeedData.Initialize(services);
-=======
-  
->>>>>>> b67f6ba7cf09d90ece82e286aee87bf2d2f19735
 }
 
 app.Run();

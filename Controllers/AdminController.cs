@@ -4,6 +4,9 @@ using BerberSite.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 
 namespace BerberSite.Controllers
 {
@@ -11,9 +14,12 @@ namespace BerberSite.Controllers
     {
         private readonly ApplicationDbContext _context;
 
-        public AdminController(ApplicationDbContext context)
+        private readonly IHttpClientFactory _httpClientFactory;
+
+        public AdminController(ApplicationDbContext context, IHttpClientFactory httpClientFactory)
         {
             _context = context;
+            _httpClientFactory = httpClientFactory;
         }
 
         public IActionResult Index()
@@ -317,49 +323,27 @@ namespace BerberSite.Controllers
         }
 
         [HttpGet]
-        public IActionResult HaftaninElemaniGoruntule()
+        public async Task<IActionResult> HaftaninPersoneli()
         {
-            DateTime startDate = DateTime.Today.AddDays(-7);
-
-            // Son 7 gün içerisinde onaylanmış randevular
-            var lastWeekAppointments = _context.Appointments
-                .Where(a => a.IsApproved == true && a.StartTime >= startDate)
-                .ToList();
-
-            if (!lastWeekAppointments.Any())
+            string apiUrl = "https://localhost:7007/api/reportapi/haftaninpersoneli";
+            using (var httpClient = new HttpClient())
             {
-                ViewBag.Message = "Son 7 günde onaylanmış randevu bulunamadı. Haftanın elemanı yok.";
-                return View();
+                var response = await httpClient.GetAsync(apiUrl);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    ViewBag.Message = $"API isteğinde hata oluştu: {response.StatusCode}";
+                    return View();
+                }
+
+                var jsonString = await response.Content.ReadAsStringAsync();
+
+                var jObject = JObject.Parse(jsonString);
+
+                ViewBag.Message = jObject["message"]?.ToString();
+                ViewBag.EmployeeName = jObject["employeeName"]?.ToString();
+                ViewBag.TotalEarnings = jObject["totalEarnings"]?.ToString();
             }
-
-            // Personel bazında grupla ve toplam kazancı hesapla
-            var employeeEarnings = lastWeekAppointments
-                .GroupBy(a => a.EmployeeId)
-                .Select(g => new {
-                    EmployeeId = g.Key,
-                    TotalEarnings = g.Sum(x => x.Price)
-                })
-                .OrderByDescending(e => e.TotalEarnings)
-                .FirstOrDefault(); // En çok kazandıranı al
-
-            if (employeeEarnings == null)
-            {
-                ViewBag.Message = "Haftanın elemanı bulunamadı.";
-                return View();
-            }
-
-            var employee = _context.Employees
-                .Include(e => e.User)
-                .FirstOrDefault(e => e.Id == employeeEarnings.EmployeeId);
-
-            if (employee == null)
-            {
-                ViewBag.Message = "Personel bulunamadı.";
-                return View();
-            }
-
-            ViewBag.EmployeeName = employee.Name + " " + employee.Surname;
-            ViewBag.TotalEarnings = employeeEarnings.TotalEarnings;
 
             return View();
         }

@@ -25,7 +25,5 @@ namespace BerberSite.ViewModels
         [DataType(DataType.Password)]
         [MinLength(6, ErrorMessage = "Şifre en az 6 karakter olmalıdır.")]
         public string Password { get; set; }
-
-        // Rol alanını kaldırdık. Her zaman Customer verilecek.
     }
 }
