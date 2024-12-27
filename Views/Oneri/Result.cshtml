@@ -1,0 +1,28 @@
+﻿@{
+    ViewBag.Title = "İşlenmiş Resim Sonucu";
+}
+
+<div class="container fade-in mt-5">
+    <h3 class="text-center mb-4">İşlenmiş Resim</h3>
+
+    @if (ViewBag.ProcessedImage != null)
+    {
+        <!-- Resim bulunduğunda ortalanmış bir şekilde gösteriyoruz -->
+        <div class="d-flex justify-content-center">
+            <img src="@ViewBag.ProcessedImage"
+                 alt="Processed Image"
+                 class="img-fluid rounded shadow"
+                 style="max-height: 500px; object-fit: contain;">
+        </div>
+    }
+    else
+    {
+        <!-- Eğer resim işlenememişse bir uyarı gösteriyoruz -->
+        <p class="text-center text-danger">Resim işlenemedi.</p>
+    }
+
+    <!-- Geri dönmek için basit bir buton -->
+    <div class="text-center">
+        <a href="/" class="btn btn-secondary mt-3">Geri Dön</a>
+    </div>
+</div>
