@@ -8,7 +8,6 @@ namespace BerberSite.Models
         [Key]
         public int Id { get; set; }
 
-        // Foreign Key to User
         [Required]
         public int UserId { get; set; }
 

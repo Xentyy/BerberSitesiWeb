@@ -4,21 +4,15 @@
 
 <div class="container fade-in mt-4">
 
-    <!-- Başlık ve alt açıklama -->
     <h2 class="text-center mb-3">Saç Modeli Önerisi</h2>
     <p class="text-center text-muted">Kendinize en uygun saç modelini seçmek için fotoğraf yükleyin.</p>
 
-    <!-- Kart içinde form görünümü -->
     <div class="card shadow p-4 mt-4" style="max-width:600px;margin:auto;">
-        <!-- Formun başladığı yer: fotoğraf ve stil seçimi -->
         <form method="post" enctype="multipart/form-data" asp-action="ProcessImage">
-            <!-- Fotoğraf Yükle Alanı -->
             <div class="mb-3">
                 <label for="uploadedImage" class="form-label">Fotoğraf Yükle</label>
                 <input type="file" class="form-control" id="uploadedImage" name="uploadedImage" required />
             </div>
-
-            <!-- Saç Modeli Seçimi Alanı -->
             <div class="mb-3">
                 <label for="style" class="form-label">Saç Modeli Seçimi</label>
                 <select class="form-select" id="style" name="style" required>
@@ -28,13 +22,10 @@
                     }
                 </select>
             </div>
-
-            <!-- Gönder Butonu -->
             <button type="submit" class="btn btn-primary w-100">Gönder</button>
         </form>
     </div>
 
-    <!-- Hata mesajı varsa, ekranda gösterilir -->
     @if (TempData["ErrorMessage"] != null)
     {
         <div class="alert alert-danger mt-3 text-center">

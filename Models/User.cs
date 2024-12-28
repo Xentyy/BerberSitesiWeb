@@ -32,8 +32,8 @@ namespace BerberSite.Models
         [Required]
         public Role Role { get; set; } = Role.Customer;
 
+        // Navigation Property
         public virtual Employee? Employee { get; set; }
-
     }
 
     public enum Role
@@ -43,4 +43,3 @@ namespace BerberSite.Models
         Employee = 3
     }
 }
-

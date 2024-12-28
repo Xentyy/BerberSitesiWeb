@@ -7,7 +7,6 @@
 
     @if (ViewBag.ProcessedImage != null)
     {
-        <!-- Resim bulunduğunda ortalanmış bir şekilde gösteriyoruz -->
         <div class="d-flex justify-content-center">
             <img src="@ViewBag.ProcessedImage"
                  alt="Processed Image"
@@ -17,11 +16,9 @@
     }
     else
     {
-        <!-- Eğer resim işlenememişse bir uyarı gösteriyoruz -->
         <p class="text-center text-danger">Resim işlenemedi.</p>
     }
 
-    <!-- Geri dönmek için basit bir buton -->
     <div class="text-center">
         <a href="/" class="btn btn-secondary mt-3">Geri Dön</a>
     </div>

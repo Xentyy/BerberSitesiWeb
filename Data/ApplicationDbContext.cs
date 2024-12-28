@@ -24,7 +24,7 @@ namespace BerberSite.Data
 
             modelBuilder.Entity<Appointment>()
                 .HasOne(a => a.Customer)
-                .WithMany() // veya uygun navigation property
+                .WithMany()
                 .HasForeignKey(a => a.CustomerId)
                 .OnDelete(DeleteBehavior.NoAction);
 

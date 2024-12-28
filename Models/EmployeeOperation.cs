@@ -1,6 +1,4 @@
-﻿using Azure;
-
-namespace BerberSite.Models
+﻿namespace BerberSite.Models
 {
     public class EmployeeOperation
     {

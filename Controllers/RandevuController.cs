@@ -14,9 +14,6 @@ namespace BerberSite.Controllers
         {
             _context = context;
         }
-
-        // Müşteri için Randevu Alma Süreci
-
         // 1. Adım: Operasyon seç
         [HttpGet]
         public IActionResult OperasyonSec()
@@ -221,14 +218,9 @@ namespace BerberSite.Controllers
 
             int userId = int.Parse(userIdStr);
 
-            // User tablosu ile Employee tablosu 1-1 ilişkiliydi. 
             // Müşterinin employee kaydı olmayabilir, ama müşterinin Appointment almak için employee olmaz gerekmez.
-            // Randevuyu kimin aldığını tutmadık. Bu noktada randevuyu alan kullanıcı bilgisi gerekli.
-            // Eğer Appointment modelinde Randevuyu alan kullanıcı (Customer) bilgisini tutmuyorsak eklememiz gerekir.
-            // Varsayalım ki Appointment modeline CustomerId alanı eklenmiş olsun.
-            // Eğer ekli değilse, bunu ekleyip migrate etmeliyiz.
 
-            // Diyelim Appointment tablosunda CustomerId var:
+            // Eğer Appointment modelinde Randevuyu alan kullanıcı (Customer) bilgisini tutmuyorsak eklememiz gerekir.
             var appointments = _context.Appointments
                 .Include(a => a.Employee)
                 .ThenInclude(e => e.User)

@@ -97,12 +97,9 @@ namespace BerberSite.Controllers
             user.LastName = model.LastName;
             user.Email = model.Email;
             user.PhoneNumber = model.PhoneNumber;
-            // Şifre alanına dokunmuyoruz (isteğe göre değişmediği varsayılmıştı)
             user.Role = model.Role;
 
             _context.SaveChanges();
-
-            // Eğer user rolü Employee ise Employee tablosunu güncelle veya ekle
             if (user.Role == Role.Employee)
             {
                 var employee = _context.Employees.FirstOrDefault(e => e.UserId == user.Id);
@@ -125,13 +122,12 @@ namespace BerberSite.Controllers
                     employee.Name = user.FirstName;
                     employee.Surname = user.LastName;
                     employee.Email = user.Email;
-                    // Password alanına dokunmuyoruz
+                    // Password değiştirmiyoruz
                 }
                 _context.SaveChanges();
             }
             else
             {
-                // Eğer rol Employee değilse, varsa Employee kaydını silelim
                 var employee = _context.Employees.FirstOrDefault(e => e.UserId == user.Id);
                 if (employee != null && user.Role != Role.Employee)
                 {
@@ -321,6 +317,9 @@ namespace BerberSite.Controllers
 
             return RedirectToAction("IslemYonetimi");
         }
+
+
+        // ------------------ Haftanın Personeli Bulma ------------------
 
         [HttpGet]
         public async Task<IActionResult> HaftaninPersoneli()

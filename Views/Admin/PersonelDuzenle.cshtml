@@ -18,7 +18,6 @@
 
 <div class="row">
     <div class="col-md-6">
-        <!-- Personelin Operasyonları -->
         <div class="card mb-3">
             <div class="card-header bg-warning text-dark">
                 <h5>Operasyonlar</h5>
@@ -65,10 +64,9 @@
                 </form>
             </div>
         </div>
-    </div> <!-- col-md-6 -->
+    </div>
 
     <div class="col-md-6">
-        <!-- Personelin Çalışma Saatleri -->
         <div class="card mb-3">
             <div class="card-header bg-primary text-white">
                 <h5>Çalışma Saatleri</h5>
@@ -109,7 +107,6 @@
                 <hr />
                 <h5>Çalışma Saati Ekle</h5>
                 <form asp-action="CalismaSaatiEkle" method="post">
-                    <!-- EmployeeId hidden input -->
                     <input type="hidden" name="EmployeeId" value="@Model.Employee.Id" />
 
                     <div class="mb-3">
@@ -134,5 +131,5 @@
 
             </div>
         </div>
-    </div> <!-- col-md-6 -->
+    </div>
 </div>
